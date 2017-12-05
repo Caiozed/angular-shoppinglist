@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Angular Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+  </head>
+  <body data-ng-app="myApp" data-ng-controller="myCtrl">
+    <div class="container">
+      <h1 class="text-center">Shopping list</h1>
+      <section>
+        <table class="table table-striped">
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total by item</th>
+          <th></th>
+          <th></th>
+          <tr data-ng-repeat="x in items ">
+            <td>{{x.name}}</td>
+            <td>{{x.quantity}}</td>
+            <td>{{x.price | currency: "R$"}}</td>
+            <td>{{x.quantity * x.price | currency: "R$"}}</td>
+            <td class="btn-warning text-center" ng-click="toggleEdit($index)">&#9998;</td>
+            <td class="btn-danger text-center" ng-click="removeItem($index)">&#10006;</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{total() | currency: "R$"}}</td>
+          </tr>
+        </table>
+        <button ng-click="toggleNew()" class="btn btn-block btn-primary">Add new item</button>
+      </section>
+      <section ng-show="new" class="jumbotron">
+          <label>Name</label>
+          <input type="text" name="name" data-ng-model="name"/>
+          <label>Quantity</label>
+          <input type="number" name="quantity" data-ng-model="quantity"/>
+          <label>price</label>
+          <input type="number" name="price" data-ng-model="price"/>
+          <button class="btn btn-primary" ng-click="addItem(name, quantity, price)">Add</button>
+      </section>
+      <section ng-show="edit" class="jumbotron">
+          <label>Name</label>
+          <input type="text" name="name" data-ng-model="name"/>
+          <label>Quantity</label>
+          <input type="number" name="quantity" data-ng-model="quantity"/>
+          <label>price</label>
+          <input type="number" name="price" data-ng-model="price"/>
+          <input type="hidden" name="index" data-ng-model="index"/>
+          <button class="btn btn-primary" ng-click="editItem(index, name, quantity, price)">Update</button>
+      </section>
+    </div>
+    
+    <script src="/js/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/master.js"></script>
+  </body>
+</html>
